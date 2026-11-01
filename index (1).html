@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gender and Society Examination</title>
+<style>
+:root{
+ --pink:#f06aa9;--pink-dark:#c94786;--pink-light:#ffe1ef;--lav:#c7b7ff;
+ --ink:#56334b;--muted:#98788d;--bg:#fff4fa;--line:#f4cadd;
+ --red:#d94b79;--green:#b84b91;--cream:#fffafd;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);
+ background:
+ radial-gradient(circle at 8% 12%,#ffd9eb 0 7px,transparent 8px),
+ radial-gradient(circle at 92% 23%,#e4dcff 0 9px,transparent 10px),
+ radial-gradient(circle at 18% 78%,#ffe6b8 0 6px,transparent 7px),
+ linear-gradient(145deg,#fff5fa,#f8f1ff 55%,#fff4f8);
+ background-size:180px 180px,220px 220px,160px 160px,auto;
+}
+header{
+ position:relative;overflow:hidden;text-align:center;color:white;padding:42px 16px 46px;
+ background:linear-gradient(145deg,#f18abc 0%,#e96aa8 48%,#b99cf6 100%);
+ border-bottom:7px solid #d85e9d;
+ box-shadow:0 12px 0 #f5c4dc,0 18px 28px #9c5c8a25;
+}
+header:before,header:after{content:"";position:absolute;border-radius:50%;background:#ffffff24;box-shadow:inset 5px 6px 12px #ffffff30,8px 12px 18px #8b3d7525}
+header:before{width:130px;height:130px;left:-28px;top:-48px}
+header:after{width:95px;height:95px;right:7%;bottom:-42px}
+header h1{position:relative;margin:0 0 9px;font-size:clamp(24px,4vw,36px);text-shadow:0 3px 0 #b84f88,0 6px 12px #74345a55;letter-spacing:.3px}
+header p{position:relative;margin:0;font-weight:700;text-shadow:0 2px 4px #87466d55}
+.container{max-width:900px;margin:34px auto;padding:0 16px}
+.card{
+ background:linear-gradient(155deg,#fff 0%,#fff9fc 65%,#fff0f7 100%);
+ border:2px solid #fff;border-radius:25px;padding:25px;margin-bottom:23px;
+ box-shadow:0 7px 0 #efc2d8,0 12px 0 #f9dce9,0 20px 30px #a64e8020,inset 0 2px 0 white;
+}
+h2{margin:0 0 10px;color:#bd4c88;text-shadow:0 1px 0 white}
+p{line-height:1.5}
+label{display:block;font-weight:800;margin:14px 0 7px}
+input,select,textarea{
+ width:100%;padding:13px 15px;border:2px solid #f3c6dc;border-radius:14px;
+ background:#fffafd;color:var(--ink);font:inherit;outline:none;
+ box-shadow:inset 0 3px 5px #9d54740d,0 3px 0 #f8dfeb;
+}
+input:focus,textarea:focus{border-color:#e77bad;box-shadow:0 0 0 4px #f8d7e9,0 3px 0 #f0c0d8}
+button{
+ border:0;border-radius:14px;padding:12px 18px;margin:5px 5px 5px 0;
+ color:white;font:inherit;font-weight:900;cursor:pointer;
+ background:linear-gradient(180deg,#fa9bc6 0%,#e45f9f 100%);
+ box-shadow:0 5px 0 #b9437e,0 8px 14px #c65a922c,inset 0 2px 0 #ffffff80;
+ text-shadow:0 1px 1px #a63e75;transition:transform .12s,box-shadow .12s,filter .12s;
+}
+button:hover{filter:brightness(1.04);transform:translateY(-2px);box-shadow:0 7px 0 #b9437e,0 11px 16px #c65a9235,inset 0 2px 0 #ffffff80}
+button:active{transform:translateY(3px);box-shadow:0 2px 0 #b9437e,0 4px 8px #c65a9225}
+button.secondary{background:linear-gradient(180deg,#cfc1ff,#9a83e8);box-shadow:0 5px 0 #7662c2,0 8px 14px #7662c225,inset 0 2px 0 #ffffff80}
+button.secondary:hover{box-shadow:0 7px 0 #7662c2,0 11px 16px #7662c235}
+button.danger{background:linear-gradient(180deg,#ff9aab,#e65a78);box-shadow:0 5px 0 #b83c5b,0 8px 14px #c65a9225,inset 0 2px 0 #ffffff80}
+button.success{background:linear-gradient(180deg,#f39acb,#c45aa4);box-shadow:0 5px 0 #98447f,0 8px 14px #c65a9225,inset 0 2px 0 #ffffff80}
+button:disabled{opacity:.5;cursor:not-allowed}
+.hidden{display:none!important}.muted{color:var(--muted)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.timer{
+ font-size:20px;font-weight:900;color:#c33d70;background:linear-gradient(145deg,#fff,#ffe0ed);
+ padding:10px 15px;border-radius:15px;border:2px solid white;
+ box-shadow:0 4px 0 #efb6d0,0 7px 12px #bd5b8c20;
+}
+.progress{height:12px;background:#f8dce9;border-radius:20px;overflow:hidden;margin:16px 0;box-shadow:inset 0 2px 4px #b76b8b22}
+.progress>div{height:100%;background:linear-gradient(90deg,#f18abc,#bd9cff);width:0;transition:width .2s;border-radius:20px;box-shadow:inset 0 2px 0 #ffffff80}
+.question{font-size:19px;line-height:1.55;font-weight:900;margin:20px 0;color:#59334c}
+.option{
+ display:flex;gap:11px;align-items:flex-start;padding:13px 14px;
+ border:2px solid #f5d4e3;border-radius:15px;margin:10px 0;cursor:pointer;
+ font-weight:600;background:linear-gradient(145deg,#fff,#fff7fb);
+ box-shadow:0 3px 0 #f3d5e4,0 6px 10px #a64e8010;
+}
+.option:hover{background:#fff0f7;border-color:#e98ab7;transform:translateY(-1px)}
+.option input{width:auto;margin-top:3px;accent-color:#df5b9b;box-shadow:none}
+textarea{min-height:100px;resize:vertical}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:650px}
+th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+th{background:#ffe5f0;color:#a84278}
+.table-wrap{overflow:auto;border:1px solid #f4d2e2;border-radius:13px}
+.pill{display:inline-block;padding:6px 10px;border-radius:20px;background:linear-gradient(145deg,#ffe9f3,#eee8ff);color:#a84278;font-size:12px;font-weight:900;box-shadow:0 2px 0 #e8c9e0}
+.notice{padding:13px 15px;border-radius:13px;background:linear-gradient(145deg,#fff4d9,#fff9ec);color:#80501a;line-height:1.5;border:1px solid #ffe6b2;box-shadow:0 3px 0 #f3dfb8}
+.small{font-size:13px}.key-item{padding:10px 8px;border-bottom:1px dashed var(--line)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+.quiet-admin{background:transparent;color:#d98bb2;opacity:.18;padding:2px 5px;margin:0 0 0 5px;font-size:12px;border:0;box-shadow:none;text-shadow:none}
+.quiet-admin:hover,.quiet-admin:focus{opacity:.65;transform:none;box-shadow:none}
+@media(max-width:600px){.card{padding:18px;border-radius:20px}.row{align-items:flex-start}.timer{font-size:17px}header{padding:34px 14px 39px}}
+</style>
+</head>
+<body>
+<header><h1>Gender and Society Examination</h1><p>✦ Advanced Version · 30 Questions · 1 minute per question ✦</p></header>
+<main class="container">
+<section id="home" class="card">
+<h2>Student Examination</h2>
+<p class="muted">Enter your details to begin. Make sure your name and section are correct.</p>
+<label for="studentName">Full name</label><input id="studentName" autocomplete="name" placeholder="Enter your full name">
+<label for="studentSection">Section</label><input id="studentSection" placeholder="Enter your section">
+<button onclick="startExam()">Start Examination</button>
+
+</section>
+
+<section id="exam" class="card hidden">
+<div class="row"><span class="pill" id="questionType">MULTIPLE CHOICE</span><div class="timer" id="timer">01:00</div></div>
+<div class="progress"><div id="progressBar"></div></div>
+<div class="row"><strong id="questionNumber">Question 1 of 30</strong><span class="muted small" id="studentLabel"></span></div>
+<div class="question" id="questionText"></div>
+<div id="answerArea"></div>
+<div class="row" style="margin-top:20px"><span class="muted small">Your answer is saved when you continue.</span><button id="nextBtn" onclick="nextQuestion()">Next Question →</button></div>
+</section>
+
+<section id="finished" class="card hidden">
+<h2>Examination submitted</h2><p id="finishMessage"></p>
+<p class="notice">Your result has been saved on this device. Please inform your teacher if you need assistance.</p>
+<button onclick="location.reload()">Return to Home</button>
+</section>
+
+<section id="adminLogin" class="card hidden">
+<h2>Administrator Login</h2>
+<label for="adminPassword">Admin password</label><input id="adminPassword" type="password" placeholder="Enter admin password">
+<p class="muted small">Change the default password in the code before publishing.</p>
+<button onclick="loginAdmin()">Login</button><button class="secondary" onclick="showHome()">Back</button>
+</section>
+
+<section id="admin" class="hidden">
+<div class="card">
+<div class="row"><div><h2>Admin Dashboard</h2><p class="muted">Examination records stored in this browser.</p></div><button class="secondary" onclick="logoutAdmin()">Logout</button></div>
+<div class="row"><strong id="recordCount">0 student records</strong><div><button class="success" onclick="exportResults()">Export Excel CSV</button><button class="danger" onclick="deleteAllRecords()">Delete All Records</button></div></div>
+<div class="notice small">Privacy and storage note: this GitHub Pages version saves records in the browser's local storage. Results are not automatically shared with other devices or browsers. Export and safely keep a backup of the CSV.</div>
+</div>
+<div class="card"><h2>Student Results</h2><div class="table-wrap"><table><thead><tr><th>Name</th><th>Section</th><th>Score</th><th>Date submitted</th><th>Action</th></tr></thead><tbody id="resultsBody"></tbody></table></div></div>
+<div class="card"><h2>Answer Key</h2><div id="answerKey"></div></div>
+</section>
+</main>
+<footer>Made with care · Gender and Society Examination <button class="quiet-admin" aria-label="Administrator access" title=" " onclick="showAdminLogin()">✿</button></footer>
+<script>
+// Change this password before publishing. This is a basic client-side lock, not secure authentication.
+const ADMIN_PASSWORD = "clicklang";
+const STORAGE_KEY = "genderSocietyExamRecords_v1";
+const questions = [
+{type:"Multiple Choice",q:"A film presents a woman as a successful engineer, but the story repeatedly focuses on her appearance rather than her technical decisions. Which concept best explains this contradiction?",o:["A. Gender equity","B. Objectification despite professional representation","C. Political accountability","D. Workplace inclusion"],a:"B"},
+{type:"Multiple Choice",q:"A company claims that its promotion process is gender-neutral. However, managers consistently choose men for leadership positions because they believe men are more decisive. What is the most appropriate analysis?",o:["A. The process is fair because the same rules are written for everyone.","B. The company demonstrates equity by following traditional expectations.","C. Unconscious or implicit gender bias may influence decisions despite formal policies.","D. The issue is unrelated to gender because managers make the final decisions."],a:"C"},
+{type:"Multiple Choice",q:"A female candidate is frequently questioned by news reporters about her clothing, while male candidates are asked about their policy proposals. What is the most likely consequence?",o:["A. It may reinforce gender stereotypes and reduce attention to her qualifications.","B. It guarantees equal media coverage.","C. It demonstrates that media representation is always objective.","D. It increases accountability by focusing on appearance."],a:"A"},
+{type:"Multiple Choice",q:"A woman attends public consultations but is repeatedly interrupted and her suggestions are ignored. Which interpretation is most accurate?",o:["A. Her political participation is complete because she is physically present.","B. Participation is meaningful only when a person holds elected office.","C. Her attendance proves that all participants have equal influence.","D. Formal participation does not necessarily guarantee meaningful voice or influence."],a:"D"},
+{type:"Multiple Choice",q:"A news organization begins featuring women as experts in science, politics, and technology. Which outcome would best indicate that this change is meaningful?",o:["A. Women appear more frequently, regardless of how they are portrayed.","B. Women are shown only in traditionally feminine occupations.","C. Women are represented with expertise, agency, and diverse roles rather than only through stereotypes.","D. The organization removes all male speakers from its programs."],a:"C"},
+{type:"Multiple Choice",q:"Which situation best distinguishes gender equity from gender equality?",o:["A. Everyone receives the same resource regardless of their circumstances.","B. People receive appropriate support to address different barriers while pursuing fair opportunities.","C. One gender receives permanent priority in all decisions.","D. Different standards are applied without considering their relevance."],a:"B"},
+{type:"Multiple Choice",q:"A company publishes an anti-harassment policy, but employees fear retaliation if they report incidents. What is the central weakness?",o:["A. The company has too many workplace rules.","B. The employees are responsible for solving the problem independently.","C. Written policies automatically ensure a safe workplace.","D. The policy is not supported by effective reporting protections and accountability."],a:"D"},
+{type:"Multiple Choice",q:"Which example best demonstrates the relationship between media representation and public perceptions of leadership?",o:["A. Repeatedly portraying men as decision-makers may reinforce the belief that leadership is primarily a male role.","B. Showing a variety of occupations always eliminates discrimination.","C. Media content has no possible influence on social expectations.","D. Leadership stereotypes exist only in workplaces and never in media."],a:"A"},
+{type:"Multiple Choice",q:"A local government invites women to attend meetings but does not provide accessible information about the agenda or allow adequate time for public comments. Which concern is most relevant?",o:["A. Women should participate only through elections.","B. Attendance is the only measure of political inclusion.","C. Access to participation does not necessarily provide an equal opportunity to influence decisions.","D. Public consultations should be limited to elected officials."],a:"C"},
+{type:"Multiple Choice",q:"Which approach would best help an employer determine whether its promotion process is fair?",o:["A. Ask managers whether they believe they are unbiased.","B. Examine promotion patterns and apply consistent, job-related criteria to candidates.","C. Promote employees based mainly on personal familiarity.","D. Avoid reviewing workplace decisions to prevent disagreements."],a:"B"},
+{type:"Multiple Choice",q:"A female politician is described in the news mainly as a wife and mother, while her legislative proposals receive little attention. Which two concepts are most directly connected to this example?",o:["A. Equity and workplace safety","B. Accountability and voting","C. Political participation and resource allocation","D. Gender stereotyping and unequal media framing"],a:"D"},
+{type:"Multiple Choice",q:"Why is it insufficient to measure women's political participation only by counting how many women attend public meetings?",o:["A. Attendance is illegal without an elected position.","B. Political participation can occur only through voting.","C. The count does not show whether women can speak, be heard, or influence decisions.","D. Public meetings have no relationship to democracy."],a:"C"},
+{type:"Multiple Choice",q:"A manager assigns administrative note-taking to women employees and technical tasks to men, regardless of their qualifications. What should be addressed first?",o:["A. Gender-based assumptions that influence task assignments","B. The number of employees attending meetings","C. The employees' personal hobbies","D. The company's advertising strategy"],a:"A"},
+{type:"Multiple Choice",q:"Which example most clearly demonstrates accountability in political participation?",o:["A. A voter chooses a candidate without reviewing any information.","B. Community members monitor public commitments and ask officials to explain their progress.","C. A candidate avoids discussing public concerns.","D. A news organization focuses only on candidates' personal lives."],a:"B"},
+{type:"Multiple Choice",q:"Which statement best connects the three topics in this quiz?",o:["A. Gender inequality occurs only when laws explicitly discriminate.","B. Media, workplaces, and political institutions operate independently of social expectations.","C. Fairness is achieved simply by increasing the number of people shown in media.","D. Stereotypes and unequal opportunities can affect representation, workplace decisions, and participation in public life."],a:"D"},
+{type:"Identification",q:"The ability of a person to make choices, express decisions, and act independently rather than being treated as passive.",a:["Agency"]},
+{type:"Identification",q:"A media practice in which a person's appearance or body is emphasized while their abilities, opinions, or individuality are minimized.",a:["Objectification"]},
+{type:"Identification",q:"A repeated, generalized belief about the characteristics or roles expected of people based on gender.",a:["Gender stereotype","Gender stereotyping"]},
+{type:"Identification",q:"The unequal presentation or treatment of people in media that can shape whose voices, experiences, or achievements receive attention.",a:["Unequal media representation","Media bias"]},
+{type:"Identification",q:"The fair provision of support that takes different needs and barriers into account to help people access opportunities.",a:["Equity"]},
+{type:"Identification",q:"Unfair treatment in hiring, work assignments, promotion, or other employment decisions because of gender.",a:["Gender discrimination"]},
+{type:"Identification",q:"Unwelcome conduct that humiliates, intimidates, or creates an unsafe working environment.",a:["Workplace harassment"]},
+{type:"Identification",q:"A workplace principle requiring employment decisions to use relevant, consistent, and fair standards rather than gender-based assumptions.",a:["Fair and objective evaluation","Objective evaluation"]},
+{type:"Identification",q:"Participation in activities that influence public decisions, including voting, community consultations, advocacy, and contacting public officials.",a:["Political participation"]},
+{type:"Identification",q:"The democratic process of selecting leaders by casting a ballot in an election.",a:["Voting"]},
+{type:"Identification",q:"The process by which public officials are expected to explain their actions, respond to questions, and answer for their responsibilities.",a:["Accountability"]},
+{type:"Identification",q:"A barrier to women's political participation arising from the belief that leadership or politics is primarily appropriate for men.",a:["Gender stereotype","Gender-based barrier","Gender-based stereotype"]},
+{type:"Identification",q:"Organized action intended to support a cause, raise awareness, or influence decisions about a social issue.",a:["Advocacy"]},
+{type:"Identification",q:"The capacity to participate in public life in a way that includes having a voice and the opportunity to affect decisions, not merely being present.",a:["Meaningful participation"]},
+{type:"Identification",q:"A systematic assumption or preference that can influence decisions without a person fully recognizing it, such as favoring male applicants for leadership roles.",a:["Implicit bias","Unconscious bias"]}
+];
+
+let current=0, answers=Array(questions.length).fill(""), seconds=60, ticker=null, student={name:"",section:""};
+const $=id=>document.getElementById(id);
+function showOnly(id){["home","exam","finished","adminLogin","admin"].forEach(x=>$(x).classList.toggle("hidden",x!==id));}
+function showHome(){showOnly("home");}
+function startExam(){
+ const name=$("studentName").value.trim(), section=$("studentSection").value.trim();
+ if(!name||!section){alert("Please enter your full name and section.");return;}
+ if(!confirm("Start the examination now? You will have 1 minute for each question."))return;
+ student={name,section};current=0;answers=Array(questions.length).fill("");showOnly("exam");$("studentLabel").textContent=name+" · "+section;renderQuestion();
+}
+function renderQuestion(){
+ clearInterval(ticker);seconds=60;const q=questions[current];
+ $("questionType").textContent=q.type.toUpperCase();$("questionNumber").textContent=`Question ${current+1} of ${questions.length}`;
+ $("questionText").textContent=q.q;$("progressBar").style.width=((current+1)/questions.length*100)+"%";
+ const area=$("answerArea");area.innerHTML="";
+ if(q.o){q.o.forEach((opt,i)=>{const label=document.createElement("label");label.className="option";const input=document.createElement("input");input.type="radio";input.name="answer";input.value="ABCD"[i];input.checked=answers[current]===input.value;input.addEventListener("change",()=>answers[current]=input.value);label.append(input,document.createTextNode(opt));area.append(label);});}
+ else{const ta=document.createElement("textarea");ta.placeholder="Type your answer here...";ta.value=answers[current];ta.addEventListener("input",()=>answers[current]=ta.value);area.append(ta);}
+ $("nextBtn").textContent=current===questions.length-1?"Submit Examination":"Next Question →";updateTimer();
+ ticker=setInterval(()=>{seconds--;updateTimer();if(seconds<=0){clearInterval(ticker);if(current===questions.length-1)submitExam(true);else{alert("Time is up for this question. Moving to the next question.");current++;renderQuestion();}}},1000);
+}
+function updateTimer(){$("timer").textContent=`${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`;}
+function nextQuestion(){
+ if(current<questions.length-1){if(!confirm("Save this answer and continue to the next question?"))return;current++;renderQuestion();}
+ else if(confirm("Submit your examination now? You cannot change your answers after submission."))submitExam(false);
+}
+function normalize(s){return String(s||"").toLowerCase().trim().replace(/[.,!?;:'"“”‘’]/g,"").replace(/\s+/g," ");}
+function grade(){
+ let score=0;const details=questions.map((q,i)=>{let correct=false;if(q.o)correct=normalize(answers[i])===normalize(q.a);else correct=q.a.some(a=>normalize(answers[i])===normalize(a));if(correct)score++;return {number:i+1,type:q.type,question:q.q,studentAnswer:answers[i],correctAnswer:q.o?q.a:q.a[0],acceptedAnswers:q.o?[q.a]:q.a,correct};});return {score,details};
+}
+function submitExam(auto){
+ clearInterval(ticker);const result=grade();const records=getRecords();
+ records.push({id:(Date.now().toString(36)+Math.random().toString(36).slice(2,7)),name:student.name,section:student.section,score:result.score,total:questions.length,date:new Date().toISOString(),details:result.details});
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(records));showOnly("finished");
+ $("finishMessage").textContent=`Thank you, ${student.name}. Your score is ${result.score} out of ${questions.length}.`;
+}
+function getRecords(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");}catch(e){return [];}}
+function showAdminLogin(){showOnly("adminLogin");}
+function loginAdmin(){if($("adminPassword").value!==ADMIN_PASSWORD){alert("Incorrect admin password.");return;}$("adminPassword").value="";showOnly("admin");renderAdmin();}
+function logoutAdmin(){if(confirm("Log out of the administrator dashboard?"))showHome();}
+function renderAdmin(){
+ const records=getRecords();$("recordCount").textContent=records.length+" student record(s)";const body=$("resultsBody");body.innerHTML="";
+ records.forEach(r=>{const tr=document.createElement("tr");[r.name,r.section,`${r.score}/${r.total}`,new Date(r.date).toLocaleString()].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td);});
+ const action=document.createElement("td"),btn=document.createElement("button");btn.className="danger";btn.textContent="Delete";btn.onclick=()=>deleteRecord(r.id);action.append(btn);tr.append(action);body.append(tr);});
+ if(!records.length){const tr=document.createElement("tr"),td=document.createElement("td");td.colSpan=5;td.textContent="No examination records yet.";tr.append(td);body.append(tr);}
+ $("answerKey").innerHTML="";questions.forEach((q,i)=>{const div=document.createElement("div");div.className="key-item";const strong=document.createElement("strong");strong.textContent=`${i+1}. `;div.append(strong,document.createTextNode(q.o?q.a:q.a.join(" / ")));$("answerKey").append(div);});
+}
+function deleteRecord(id){if(!confirm("Delete this student's record permanently from this browser?"))return;localStorage.setItem(STORAGE_KEY,JSON.stringify(getRecords().filter(r=>r.id!==id)));renderAdmin();}
+function deleteAllRecords(){if(!getRecords().length){alert("There are no records to delete.");return;}if(!confirm("Delete ALL student records permanently from this browser? This cannot be undone."))return;if(!confirm("Are you absolutely sure? Export a backup first if needed."))return;localStorage.removeItem(STORAGE_KEY);renderAdmin();}
+function csvCell(v){return '"'+String(v??"").replace(/"/g,'""')+'"';}
+function exportResults(){
+ const records=getRecords();if(!records.length){alert("There are no results to export.");return;}
+ const rows=[["Student Name","Section","Score","Total","Date Submitted",...questions.map((q,i)=>`Q${i+1} Student Answer`)]];
+ records.forEach(r=>rows.push([r.name,r.section,r.score,r.total,new Date(r.date).toLocaleString(),...r.details.map(d=>d.studentAnswer)]));
+ const csv="\uFEFF"+rows.map(row=>row.map(csvCell).join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="gender_society_exam_results.csv";document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+window.addEventListener("beforeunload",e=>{if(!$("exam").classList.contains("hidden")){e.preventDefault();e.returnValue="Your exam is in progress."; }});
+</script>
+</body>
+</html>
